@@ -43,7 +43,7 @@ public class Sistema extends HttpServlet {
         boolean hecho = false;
         CatalogoDeCategoria catalogo = new CatalogoDeCategoria();
         if(catalogo.validarNombre(nombre)){
-            hecho = true; //catalogo.addCategoria(new Categoria(nombre, descripcion));
+        hecho = catalogo.addCategoria(new Categoria(nombre, descripcion));
         }
         return hecho;
     }

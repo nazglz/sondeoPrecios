@@ -16,15 +16,21 @@ import org.hibernate.Transaction;
  * @author Nahum
  */
 public class CatalogoDeCategoria {
-    
     ArrayList<Categoria> categorias;
     
+    public CatalogoDeCategoria() {
+    }
+    
+   
+    
     public boolean addCategoria(Categoria categoria){
-        boolean res;
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session session = sf.openSession();
+       boolean res;
+        SessionFactory sf;
+        Session session;
         Transaction tx = null;
         try{
+            sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.save(categoria);
             tx.commit();
@@ -38,13 +44,28 @@ public class CatalogoDeCategoria {
         return res;
     }
     
-    public void eliminarCategoria(Categoria categoria){}
+    public void eliminarCategoria(Categoria categoria){
+        SessionFactory sf;
+        Session session;
+        Transaction tx = null;
+        try{
+            sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            session.delete(categoria);
+            tx.commit();
+            session.close();
+        }catch(HibernateException ex){
+            if(tx != null)
+                tx.rollback();
+        }
+    }
     
     public void modificarCategoria(Categoria categoria){
     
     }
     
-    public ArrayList getCategorias(){
+    public ArrayList<Categoria> getCategorias(){
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         Query consulta = session.createQuery("from Categoria");
@@ -54,7 +75,13 @@ public class CatalogoDeCategoria {
     }
     
     public Categoria getCategoria(int idCategoria){
-        return null;
+        SessionFactory sf;
+        Session session;
+        sf = HibernateUtil.getSessionFactory();
+        session = sf.openSession();
+        Categoria cat = (Categoria) session.get(Categoria.class, idCategoria);
+        session.close();
+        return cat;
     }
     
     public boolean validarNombre(String nombre){
