@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-27-2014 07:00:48 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class name="Modelo.Categoria" schema="SONDEOPRECIOS" table="CATEGORIA">
+    <id name="idcategoria" type="integer">
+      <column name="IDCATEGORIA" precision="10" scale="0"/>
+      <generator class="increment"/>
+    </id>
+    <property name="nombre" type="string">
+      <column length="100" name="NOMBRE" not-null="true"/>
+    </property>
+    <property name="descripcion" type="string">
+      <column length="200" name="DESCRIPCION" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="productos" table="PRODUCTO">
+      <key>
+        <column name="IDCATEGORIA_FK" not-null="true" precision="10" scale="0"/>
+      </key>
+      <one-to-many class="Modelo.Producto"/>
+    </set>
+  </class>
+</hibernate-mapping>
