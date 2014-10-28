@@ -39,11 +39,12 @@ public class Sistema extends HttpServlet {
         }
     }
     
-    private boolean addCategoria(String nombre, String descripcion){
-        boolean hecho = false;
+    private String addCategoria(String nombre, String descripcion){
+        
         CatalogoDeCategoria catalogo = new CatalogoDeCategoria();
-        if(catalogo.validarNombre(nombre)){
-        hecho = catalogo.addCategoria(new Categoria(nombre, descripcion));
+        String hecho = catalogo.validarNombre(nombre);
+        if(hecho.equals("EsValido")){
+            hecho = catalogo.addCategoria(new Categoria(nombre, descripcion));
         }
         return hecho;
     }
@@ -53,18 +54,19 @@ public class Sistema extends HttpServlet {
     private void processRequestPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Enumeration<String> parametros =  request.getParameterNames();
         RequestDispatcher rd;
-        boolean res = false;
+        String res = "No paso nada";
         if(parametros.hasMoreElements()){
             String accion = request.getParameter("action");
             if(accion != null){
                 switch(accion){
                     case "newCat":
                        res = addCategoria(request.getParameter("frmNewName"), request.getParameter("frmNewDesc"));
+                       request.setAttribute("usuario", res);
+                        rd = request.getRequestDispatcher("/index.jsp");
+                        rd.forward(request, response);
                     break;
                 }
-                request.setAttribute("usuario", res);
-                rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);
+                
             }
         }else{
             request.setAttribute("titulo", ".::Bienvenido::.");

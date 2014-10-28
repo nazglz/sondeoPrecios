@@ -23,8 +23,8 @@ public class CatalogoDeCategoria {
     
    
     
-    public boolean addCategoria(Categoria categoria){
-       boolean res;
+    public String addCategoria(Categoria categoria){
+       String res;
         SessionFactory sf;
         Session session;
         Transaction tx = null;
@@ -35,11 +35,11 @@ public class CatalogoDeCategoria {
             session.save(categoria);
             tx.commit();
             session.close();
-            res = true;
+            res = "Ingresado";
         }catch(HibernateException ex){
             if(tx != null)
                 tx.rollback();
-            res = false;
+            res = "No ingresado";
         }
         return res;
     }
@@ -84,19 +84,19 @@ public class CatalogoDeCategoria {
         return cat;
     }
     
-    public boolean validarNombre(String nombre){
-        boolean valido = nombre.matches("/^([a-z ñáéíóú]{2,60})$/i");
-        boolean res = true;
+    public String validarNombre(String nombre){
+        boolean valido = nombre.matches("[a-zA-Zñáéíóú]*");
+        String res ="EsValido";
         if(valido){
            this.categorias = getCategorias();
             for (Categoria categoria : categorias) {
                 if(categoria.esIgual(nombre)){
-                    res = false;
+                    res = "YaExiste";
                     break;
                 }
             }
         }else{
-            res = false;
+            res = "NoValidoName";
         }
         return res;
     }
