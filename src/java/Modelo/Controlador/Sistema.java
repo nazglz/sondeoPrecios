@@ -61,7 +61,7 @@ public class Sistema extends HttpServlet {
                 switch(accion){
                     case "newCat":
                        res = addCategoria(request.getParameter("frmNewName"), request.getParameter("frmNewDesc"));
-                       request.setAttribute("usuario", res);
+                       request.setAttribute("usuario",request.getParameter("frmNewName"));
                         rd = request.getRequestDispatcher("/index.jsp");
                         rd.forward(request, response);
                     break;

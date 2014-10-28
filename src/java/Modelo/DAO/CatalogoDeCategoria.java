@@ -85,12 +85,12 @@ public class CatalogoDeCategoria {
     }
     
     public String validarNombre(String nombre){
-        boolean valido = nombre.matches("[a-zA-Zñáéíóú]*");
+        boolean valido = nombre.matches("[a-zA-Z ñáéíóú]*");
         String res ="EsValido";
         if(valido){
            this.categorias = getCategorias();
             for (Categoria categoria : categorias) {
-                if(categoria.esIgual(nombre)){
+                if(categoria.getNombre().equalsIgnoreCase(nombre)){
                     res = "YaExiste";
                     break;
                 }

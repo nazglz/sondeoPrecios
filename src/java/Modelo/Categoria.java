@@ -74,9 +74,6 @@ public class Categoria  implements java.io.Serializable {
     
     }
     
-    public boolean esIgual(String nombre){
-        return nombre == this.nombre;
-    }
 
 }
 
