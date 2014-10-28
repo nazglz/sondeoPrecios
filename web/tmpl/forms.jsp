@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Agregar Categoria -->
 <div class="modal fade" id="frmNewCat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -16,6 +16,7 @@
                 <label for="frmNewDesc">Descripción</label>
                 <textarea class="form-control" id="frmNewDesc" name="frmNewDesc" rows="2" cols="55" required></textarea>
             </div>
+            <input type="hidden" value="newCat" name="action">
         </form>
       </div>
       <div class="modal-footer">

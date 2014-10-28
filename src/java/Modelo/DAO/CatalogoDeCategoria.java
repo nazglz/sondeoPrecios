@@ -18,12 +18,10 @@ import org.hibernate.Transaction;
 public class CatalogoDeCategoria {
     
     ArrayList<Categoria> categorias;
-    ;
-    ;
     
     public boolean addCategoria(Categoria categoria){
         boolean res;
-        SessionFactory sf= HibernateUtil.getSessionFactory();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         Transaction tx = null;
         try{
